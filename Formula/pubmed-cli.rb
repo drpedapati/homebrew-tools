@@ -2,15 +2,15 @@ class PubmedCli < Formula
   desc "PubMed from your terminal — search, fetch, cite, traverse. Built for humans and AI agents."
   homepage "https://github.com/henrybloomingdale/pubmed-cli"
   license "MIT"
-  version "0.5.0"
+  version "0.5.1"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/henrybloomingdale/pubmed-cli/releases/download/v0.5.0/pubmed-darwin-arm64"
-      sha256 "7906a47d1296a9b1e44a3f47c8fdaf5b25651f4064ef3552664871b066840518"
+      url "https://github.com/henrybloomingdale/pubmed-cli/releases/download/v0.5.1/pubmed-darwin-arm64"
+      sha256 "5ecbe9d5cc46ec8041d4caae1bd8330af79672208b8d49f0cc0c31d1b9a3ee2f"
     else
-      url "https://github.com/henrybloomingdale/pubmed-cli/releases/download/v0.5.0/pubmed-darwin-amd64"
-      sha256 "e0511f4225d0196fcc272abb165a304919c195d8a88d5e8fda29b1d13226f4bd"
+      url "https://github.com/henrybloomingdale/pubmed-cli/releases/download/v0.5.1/pubmed-darwin-amd64"
+      sha256 "f17ecda34a4be379274d9ee3968822fc929021b427bdb72b071b9dd20016997b"
     end
   end
 
