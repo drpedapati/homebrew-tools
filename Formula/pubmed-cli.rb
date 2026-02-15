@@ -1,24 +1,40 @@
 class PubmedCli < Formula
-  desc "PubMed from your terminal — search, fetch, cite, traverse. Built for humans and AI agents."
-  homepage "https://github.com/henrybloomingdale/pubmed-cli"
+  desc "Command-line client for search, fetch, citation, and traversal workflows"
+  homepage "https://github.com/drpedapati/pubmed-cli"
+  version "0.5.4"
   license "MIT"
-  version "0.5.3"
 
   on_macos do
-    if Hardware::CPU.arm?
-      url "https://github.com/henrybloomingdale/pubmed-cli/releases/download/v0.5.3/pubmed-darwin-arm64"
-      sha256 "bf1002ca53d053a44bffafa8fe7af97a6af0e30ea43339be2fc9e2964945eaf7"
-    else
-      url "https://github.com/henrybloomingdale/pubmed-cli/releases/download/v0.5.3/pubmed-darwin-amd64"
-      sha256 "f1b1797ca60ed00384dd14f32d0ce3fc1afc774bf7baf780427e93d50d411631"
+    on_arm do
+      url "https://github.com/drpedapati/pubmed-cli/releases/download/v0.5.4/pubmed-darwin-arm64"
+      sha256 "c8ce96d51e842cd0f637b48012f19a7e0203a9cc4e8e6498295e573dd6350af2"
+    end
+    on_intel do
+      url "https://github.com/drpedapati/pubmed-cli/releases/download/v0.5.4/pubmed-darwin-amd64"
+      sha256 "c4eaef94d1ab766d6a8e2b1aea326f5efa09134a3b59f6dc9ce7d3866df26129"
+    end
+  end
+
+  on_linux do
+    on_intel do
+      url "https://github.com/drpedapati/pubmed-cli/releases/download/v0.5.4/pubmed-linux-amd64"
+      sha256 "f181dc727fa20a2326e33ceff4d270ce4250dc8c4b28851597f278eaca000263"
+    end
+    on_arm do
+      url "https://github.com/drpedapati/pubmed-cli/releases/download/v0.5.4/pubmed-linux-arm64"
+      sha256 "2ab88859fbcc58d3e6d828af5319bbc9afd838e437850c07d6d2b782844ffb60"
     end
   end
 
   def install
-    if Hardware::CPU.arm?
+    if OS.mac? && Hardware::CPU.arm?
       bin.install "pubmed-darwin-arm64" => "pubmed"
-    else
+    elsif OS.mac?
       bin.install "pubmed-darwin-amd64" => "pubmed"
+    elsif Hardware::CPU.arm?
+      bin.install "pubmed-linux-arm64" => "pubmed"
+    else
+      bin.install "pubmed-linux-amd64" => "pubmed"
     end
   end
 
