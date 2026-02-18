@@ -7,10 +7,10 @@ class DocxReview < Formula
   on_macos do
     if Hardware::CPU.arm?
       url "https://github.com/drpedapati/docx-review/releases/download/v1.3.0/docx-review-darwin-arm64"
-      sha256 "031a60566ba79264b76850a31a862bc0d3a932e7b77f3b629f66060a9b3e73e3"
+      sha256 "6af82faa29f04a0a4f8b4e2f3350fa47f00767d51774fd72fbf5080e888e40c3"
     else
       url "https://github.com/drpedapati/docx-review/releases/download/v1.3.0/docx-review-darwin-amd64"
-      sha256 "b4b806c09e0226eb8fac87786467371c37f5e472d669f2b7fbf1f44fe2198f65"
+      sha256 "4a26e20fbfc30582c112bf1381303323807b47f085a497b29a76e07665b52741"
     end
   end
 
