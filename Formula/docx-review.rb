@@ -7,20 +7,20 @@ class DocxReview < Formula
   on_macos do
     if Hardware::CPU.arm?
       url "https://github.com/drpedapati/docx-review/releases/download/v1.3.1/docx-review-darwin-arm64"
-      sha256 "612669fde6034106ededdc3ca8085b95193720fc9a2c6837dfa8f23782764ab8"
+      sha256 "f2f8fcd4cedc22bd5d7f0de2ed677acb5eaded1e5a9ec53f1000feb6b86cab5a"
     else
       url "https://github.com/drpedapati/docx-review/releases/download/v1.3.1/docx-review-darwin-amd64"
-      sha256 "a7d990a88483101053e7b774b741b481b73d41afa174de51f5fcbd198b93bed8"
+      sha256 "856b8ab92054cc4cf74431b44d5ac813de7616991beff377f4a2246914599da3"
     end
   end
 
   on_linux do
     if Hardware::CPU.arm?
       url "https://github.com/drpedapati/docx-review/releases/download/v1.3.1/docx-review-linux-arm64"
-      sha256 "ed02f7e670b66d2d2396fa8da2409a3a3e2266197cd199f5a3c4f0bf9ffc5cda"
+      sha256 "7bf0e349ed85b645fbeb535c4933c8f926dcbe06b5cb3d38489e5256d6b48b0d"
     else
       url "https://github.com/drpedapati/docx-review/releases/download/v1.3.1/docx-review-linux-amd64"
-      sha256 "b712f9da44ac0631826d580103078a3bb26900f357c49e190c3d6f549090c55f"
+      sha256 "bbf634a36658f15eacb2179bc5e5215b927e2efef2533631d23a3180f4b2bdef"
     end
   end
 
