@@ -5,21 +5,21 @@
 class OpenclawDiscordArchive < Formula
   desc "Archive OpenClaw Discord session transcripts to searchable vector memory"
   homepage "https://github.com/henrybloomingdale/openclaw-discord-archive"
-  version "0.1.0"
+  version "0.2.0"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/henrybloomingdale/openclaw-discord-archive/releases/download/v0.1.0/openclaw-discord-archive_darwin_amd64.tar.gz"
-      sha256 "bcf969a0a9bd462f3ecf83c08bb0c5f54d41a5e074b39f96ee2ab7c9778560c5"
+      url "https://github.com/henrybloomingdale/openclaw-discord-archive/releases/download/v0.2.0/openclaw-discord-archive_darwin_amd64.tar.gz"
+      sha256 "99eff5477b733b6c694a42fba342d1a544ee735de896df68bc9d5c438d390fc5"
 
       define_method(:install) do
         bin.install "openclaw-discord-archive"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/henrybloomingdale/openclaw-discord-archive/releases/download/v0.1.0/openclaw-discord-archive_darwin_arm64.tar.gz"
-      sha256 "0790a75d086d10808c60f90da3e61e6afd2d576efdc8ed7ac5bb5cc892c2f37a"
+      url "https://github.com/henrybloomingdale/openclaw-discord-archive/releases/download/v0.2.0/openclaw-discord-archive_darwin_arm64.tar.gz"
+      sha256 "21b508b1b720948b878cc4ed480498f7eb5bc406b9465dc4f15e402d3c7bd212"
 
       define_method(:install) do
         bin.install "openclaw-discord-archive"
@@ -29,15 +29,15 @@ class OpenclawDiscordArchive < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/henrybloomingdale/openclaw-discord-archive/releases/download/v0.1.0/openclaw-discord-archive_linux_amd64.tar.gz"
-      sha256 "f06a46a18bb06e6953bbfec64e95ee72775c42e6e3de064ac16a7cb5a379f13c"
+      url "https://github.com/henrybloomingdale/openclaw-discord-archive/releases/download/v0.2.0/openclaw-discord-archive_linux_amd64.tar.gz"
+      sha256 "39793ea68a0373652126d8c9343abe09b4c9283a5c0ae5e88eeefb3967c52b1d"
       define_method(:install) do
         bin.install "openclaw-discord-archive"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/henrybloomingdale/openclaw-discord-archive/releases/download/v0.1.0/openclaw-discord-archive_linux_arm64.tar.gz"
-      sha256 "ab44806edb583c41894381598dcec7ef870ea6b1eb6c77174f5a93e6e65b8382"
+      url "https://github.com/henrybloomingdale/openclaw-discord-archive/releases/download/v0.2.0/openclaw-discord-archive_linux_arm64.tar.gz"
+      sha256 "28b8c0efa32165c1fd3cdf8ae367dc6b5633da1758d436ee614da8efb906024a"
       define_method(:install) do
         bin.install "openclaw-discord-archive"
       end
