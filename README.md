@@ -6,7 +6,7 @@
 
 <p align="center">
   <strong>CLI tools for document review, scientific research, clinical data, and macOS automation.</strong><br>
-  Built for humans and AI agents. One tap, seven tools.
+  Built for humans and AI agents. One tap, eight tools.
 </p>
 
 <p align="center">
@@ -22,7 +22,7 @@
 ## Install
 
 ```bash
-brew tap henrybloomingdale/tools
+brew tap drpedapati/tools
 ```
 
 Then install any tool:
@@ -33,6 +33,7 @@ brew install docx-review       # Word tracked changes & comments
 brew install pptx-review       # PowerPoint editing & comments
 brew install xlsx-review       # Excel editing & comments
 brew install pdf-create        # PDF generation from JSON
+brew install pdf-form-filler   # AcroForm inspection and fill
 brew install phi-cleaner       # Clinical text de-identification
 brew install mac-control       # macOS GUI automation
 ```
@@ -40,7 +41,7 @@ brew install mac-control       # macOS GUI automation
 Or install everything:
 
 ```bash
-brew install pubmed-cli docx-review pptx-review xlsx-review pdf-create phi-cleaner mac-control
+brew install pubmed-cli docx-review pptx-review xlsx-review pdf-create pdf-form-filler phi-cleaner mac-control
 ```
 
 ---
@@ -56,7 +57,7 @@ Programmatic document editing via JSON manifests. Read, edit, comment — all fr
 <td width="120" align="center">
 <br>
 <strong>📝</strong><br>
-<a href="https://github.com/henrybloomingdale/docx-review"><strong>docx-review</strong></a><br>
+<a href="https://github.com/drpedapati/docx-review"><strong>docx-review</strong></a><br>
 <code>v1.1.0</code>
 </td>
 <td>
@@ -86,7 +87,7 @@ Insert, delete, replace text with full revision tracking. Add margin comments an
 <td width="120" align="center">
 <br>
 <strong>📊</strong><br>
-<a href="https://github.com/henrybloomingdale/pptx-review"><strong>pptx-review</strong></a><br>
+<a href="https://github.com/drpedapati/pptx-review"><strong>pptx-review</strong></a><br>
 <code>v1.0.1</code>
 </td>
 <td>
@@ -113,7 +114,7 @@ Edit text, add speaker notes, insert comments — all driven by JSON. Review pre
 <td width="120" align="center">
 <br>
 <strong>📈</strong><br>
-<a href="https://github.com/henrybloomingdale/xlsx-review"><strong>xlsx-review</strong></a><br>
+<a href="https://github.com/drpedapati/xlsx-review"><strong>xlsx-review</strong></a><br>
 <code>v1.0.0</code>
 </td>
 <td>
@@ -159,6 +160,36 @@ Describe your document layout in JSON — headings, paragraphs, tables, images, 
 
 </td>
 </tr>
+
+<tr>
+<td width="120" align="center">
+<br>
+<strong>🧾</strong><br>
+<a href="https://github.com/drpedapati/csharp-pdf-filler"><strong>pdf-form-filler</strong></a><br>
+<code>v0.1.0</code>
+</td>
+<td>
+
+**Inspect and fill real AcroForm PDFs from the command line.**
+
+```bash
+# Inspect a PDF form
+pdf-form-filler inspect --pdf prior-auth.pdf --json
+
+# Export a stable field schema
+pdf-form-filler schema --pdf prior-auth.pdf
+
+# Fill from JSON while keeping the result editable for human review
+pdf-form-filler fill --pdf prior-auth.pdf --values values.json --out filled.pdf --json
+
+# Flatten only for final non-editable output
+pdf-form-filler fill --pdf prior-auth.pdf --values values.json --out final.pdf --flatten
+```
+
+Designed for true AcroForm workflows with stable schema export, JSON-driven fill, encrypted form handling, and optional flattening for final distribution.
+
+</td>
+</tr>
 </table>
 
 ---
@@ -170,7 +201,7 @@ Describe your document layout in JSON — headings, paragraphs, tables, images, 
 <td width="120" align="center">
 <br>
 <strong>🔬</strong><br>
-<a href="https://github.com/henrybloomingdale/pubmed-cli"><strong>pubmed-cli</strong></a><br>
+<a href="https://github.com/drpedapati/pubmed-cli"><strong>pubmed-cli</strong></a><br>
 <code>v0.5.3</code>
 </td>
 <td>
@@ -208,7 +239,7 @@ Zero dependencies. Structured JSON output. Agent-ready. Includes `pubmed synth` 
 <td width="120" align="center">
 <br>
 <strong>🏥</strong><br>
-<a href="https://github.com/henrybloomingdale/phi-cleaner"><strong>phi-cleaner</strong></a><br>
+<strong>phi-cleaner</strong><br>
 <code>v0.1.0</code>
 </td>
 <td>
@@ -250,7 +281,7 @@ Detects patient names, provider names, dates, hospitals, IDs/MRNs, phone numbers
 <td width="120" align="center">
 <br>
 <strong>🖱️</strong><br>
-<a href="https://github.com/henrybloomingdale/mac-control"><strong>mac-control</strong></a><br>
+<strong>mac-control</strong><br>
 <code>v0.1.0</code>
 </td>
 <td>
