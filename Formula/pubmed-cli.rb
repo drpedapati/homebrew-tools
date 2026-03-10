@@ -1,28 +1,28 @@
 class PubmedCli < Formula
   desc "Command-line client for search, fetch, citation, and traversal workflows"
   homepage "https://github.com/drpedapati/pubmed-cli"
-  version "0.5.4"
+  version "0.6.0"
   license "MIT"
 
   on_macos do
     on_arm do
-      url "https://github.com/drpedapati/pubmed-cli/releases/download/v0.5.4/pubmed-darwin-arm64"
-      sha256 "c8ce96d51e842cd0f637b48012f19a7e0203a9cc4e8e6498295e573dd6350af2"
+      url "https://github.com/drpedapati/pubmed-cli/releases/download/v0.6.0/pubmed-darwin-arm64"
+      sha256 "f1f16c692a508ad4bf2225fd42bbec9624110e61bb1894ed5154382619f041e0"
     end
     on_intel do
-      url "https://github.com/drpedapati/pubmed-cli/releases/download/v0.5.4/pubmed-darwin-amd64"
-      sha256 "c4eaef94d1ab766d6a8e2b1aea326f5efa09134a3b59f6dc9ce7d3866df26129"
+      url "https://github.com/drpedapati/pubmed-cli/releases/download/v0.6.0/pubmed-darwin-amd64"
+      sha256 "c30e7285e4a38f5c4836451a7e4793dad93400682710d95d7f7c15fc39d106fc"
     end
   end
 
   on_linux do
     on_intel do
-      url "https://github.com/drpedapati/pubmed-cli/releases/download/v0.5.4/pubmed-linux-amd64"
-      sha256 "f181dc727fa20a2326e33ceff4d270ce4250dc8c4b28851597f278eaca000263"
+      url "https://github.com/drpedapati/pubmed-cli/releases/download/v0.6.0/pubmed-linux-amd64"
+      sha256 "dc007b61b247cfa4deec88973fa13f79c7347818146ff5042507b1ab45336e4b"
     end
     on_arm do
-      url "https://github.com/drpedapati/pubmed-cli/releases/download/v0.5.4/pubmed-linux-arm64"
-      sha256 "2ab88859fbcc58d3e6d828af5319bbc9afd838e437850c07d6d2b782844ffb60"
+      url "https://github.com/drpedapati/pubmed-cli/releases/download/v0.6.0/pubmed-linux-arm64"
+      sha256 "217b8775f52f0c60f9b40e956dc7553d7acca5d01f47698f8de8c4d9428aa283"
     end
   end
 
