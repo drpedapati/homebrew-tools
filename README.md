@@ -10,6 +10,10 @@
 </p>
 
 <p align="center">
+  Use <code>drpedapati/tap</code> for <strong>sciClaw</strong> itself. Use <code>drpedapati/tools</code> when you want the standalone tools directly.
+</p>
+
+<p align="center">
   <a href="#install">Install</a> •
   <a href="#tools">Tools</a> •
   <a href="#document-office-suite">Office Suite</a> •
@@ -24,6 +28,12 @@
 ```bash
 brew tap drpedapati/tools
 ```
+
+This tap is for standalone utilities. It is intentionally separate from the main sciClaw tap:
+
+- `drpedapati/tap` installs `sciclaw`, `sciclaw-dev`, `irl`, and `sciclaw-*` companion formulas
+- `drpedapati/tools` installs the standalone tools listed below
+- deprecated legacy tap: `drpedapati/sciclaw` (users should untap it if still present)
 
 Then install any tool:
 
