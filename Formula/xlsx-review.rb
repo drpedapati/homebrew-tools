@@ -1,26 +1,26 @@
 class XlsxReview < Formula
   desc "Read, edit, and diff Excel spreadsheets from the CLI"
   homepage "https://github.com/drpedapati/xlsx-review"
-  version "1.2.0"
+  version "1.2.1"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/drpedapati/xlsx-review/releases/download/v1.2.0/xlsx-review-darwin-arm64"
-      sha256 "dd5a7f7a6741f1b1558d092e25c1b3768556216d2004683d905a887ec7e80e20"
+      url "https://github.com/drpedapati/xlsx-review/releases/download/v1.2.1/xlsx-review-darwin-arm64"
+      sha256 "78fc6725b4aed5ff51c385ff5e19405df89451adf5adb0a28eb57ab563dc2060"
     else
-      url "https://github.com/drpedapati/xlsx-review/releases/download/v1.2.0/xlsx-review-darwin-amd64"
-      sha256 "74e1baeac05061e25fcbe9ccfe7c9152f316776375a3dd32413ffa5843abedfb"
+      url "https://github.com/drpedapati/xlsx-review/releases/download/v1.2.1/xlsx-review-darwin-amd64"
+      sha256 "c07f2779e3472e884c7ab3f29fe139a53cac96ceaebcb42ae4b0c100093d1264"
     end
   end
 
   on_linux do
     if Hardware::CPU.arm?
-      url "https://github.com/drpedapati/xlsx-review/releases/download/v1.2.0/xlsx-review-linux-arm64"
-      sha256 "84d1509104f963216d4cf0b0668af0465254289e05800becdab23950c0075e52"
+      url "https://github.com/drpedapati/xlsx-review/releases/download/v1.2.1/xlsx-review-linux-arm64"
+      sha256 "7c474b07000f8cbc1cbb03599ff2e44462ba32154e5b68ccbbe28c350bcf8754"
     else
-      url "https://github.com/drpedapati/xlsx-review/releases/download/v1.2.0/xlsx-review-linux-amd64"
-      sha256 "0d20d062ab9a2228013ed921f68575724446953567bc336593b90d90e39460d2"
+      url "https://github.com/drpedapati/xlsx-review/releases/download/v1.2.1/xlsx-review-linux-amd64"
+      sha256 "9ed2f2a5533df75afbf83702857aafb2877df7cc63d4f9505605b5b32fe5c726"
     end
   end
 
@@ -30,6 +30,6 @@ class XlsxReview < Formula
   end
 
   test do
-    assert_match "xlsx-review 1.2.0", shell_output("#{bin}/xlsx-review --version")
+    assert_match "xlsx-review 1.2.1", shell_output("#{bin}/xlsx-review --version")
   end
 end
