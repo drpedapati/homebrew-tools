@@ -7,20 +7,20 @@ class XlsxReview < Formula
   on_macos do
     if Hardware::CPU.arm?
       url "https://github.com/drpedapati/xlsx-review/releases/download/v1.2.1/xlsx-review-darwin-arm64"
-      sha256 "78fc6725b4aed5ff51c385ff5e19405df89451adf5adb0a28eb57ab563dc2060"
+      sha256 "dd4f6d2b9332ebf3322fd8f0a4e2a9319ef0d8ec68f0f23824b3152edf174e0e"
     else
       url "https://github.com/drpedapati/xlsx-review/releases/download/v1.2.1/xlsx-review-darwin-amd64"
-      sha256 "c07f2779e3472e884c7ab3f29fe139a53cac96ceaebcb42ae4b0c100093d1264"
+      sha256 "5982f72d4badb1a75d99525462e3dd68b0562476f91be6bd8499a273ea464d72"
     end
   end
 
   on_linux do
     if Hardware::CPU.arm?
       url "https://github.com/drpedapati/xlsx-review/releases/download/v1.2.1/xlsx-review-linux-arm64"
-      sha256 "7c474b07000f8cbc1cbb03599ff2e44462ba32154e5b68ccbbe28c350bcf8754"
+      sha256 "65aba4dd924156e60fdbceeffd76575f0d9703da110221a62a1c36c62d6913c7"
     else
       url "https://github.com/drpedapati/xlsx-review/releases/download/v1.2.1/xlsx-review-linux-amd64"
-      sha256 "9ed2f2a5533df75afbf83702857aafb2877df7cc63d4f9505605b5b32fe5c726"
+      sha256 "d1655f610b4f43276fc1b0855236880b3ed7f36635c908f82eafaac1e0e1b983"
     end
   end
 
