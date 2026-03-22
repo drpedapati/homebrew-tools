@@ -56,12 +56,18 @@ class TmuxCustom < Formula
     <<~EOS
       ╭─ tmux-custom (drpedapati fork) ──────────────────────────────╮
       │                                                               │
-      │  1. Install the Catppuccin theme plugin (one-time):           │
+      │  1. Install plugins (one-time):                               │
       │                                                               │
       │     git clone https://github.com/catppuccin/tmux \\           │
       │       ~/.tmux/plugins/catppuccin                              │
       │                                                               │
-      │  2. (Optional) Enable time tracking via wakapi.dev:            │
+      │     git clone https://github.com/tmux-plugins/tmux-resurrect \\│
+      │       ~/.tmux/plugins/tmux-resurrect                          │
+      │                                                               │
+      │     git clone https://github.com/tmux-plugins/tmux-continuum \\│
+      │       ~/.tmux/plugins/tmux-continuum                          │
+      │                                                               │
+      │  2. (Optional) Enable time tracking via wakapi.dev:           │
       │     Sign up at https://wakapi.dev, then create               │
       │     ~/.wakatime.cfg:                                          │
       │                                                               │
@@ -72,6 +78,7 @@ class TmuxCustom < Formula
       │  3. Start tmux:  tmux                                         │
       │     (attaches to existing 'main' session or creates one)      │
       │                                                               │
+      │  Sessions auto-save every 15 min. prefix+Ctrl-r to restore.  │
       │  F1 inside tmux shows the full key binding reference.         │
       │                                                               │
       │  Docs: https://github.com/drpedapati/tmux                     │
