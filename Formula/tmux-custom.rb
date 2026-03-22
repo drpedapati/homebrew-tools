@@ -1,0 +1,62 @@
+class TmuxCustom < Formula
+  desc "Terminal multiplexer (drpedapati fork with custom patches)"
+  homepage "https://github.com/drpedapati/tmux"
+  url "https://github.com/tmux/tmux/releases/download/3.6a/tmux-3.6a.tar.gz"
+  sha256 "b6d8d9c76585db8ef5fa00d4931902fa4b8cbe8166f528f44fc403961a3f3759"
+  license "ISC"
+  version "3.6a"
+
+  head do
+    url "https://github.com/drpedapati/tmux.git", branch: "main"
+
+    depends_on "autoconf" => :build
+    depends_on "automake" => :build
+    depends_on "libtool" => :build
+  end
+
+  depends_on "pkgconf" => :build
+  depends_on "libevent"
+  depends_on "ncurses"
+  depends_on "utf8proc"
+
+  uses_from_macos "bison" => :build
+
+  # Conflicts with stock tmux
+  conflicts_with "tmux", because: "both install a `tmux` binary"
+
+  resource "completion" do
+    url "https://raw.githubusercontent.com/imomaliev/tmux-bash-completion/8da7f797245970659b259b85e5409f197b8afddd/completions/tmux"
+    sha256 "4e2179053376f4194b342249d75c243c1573c82c185bfbea008be1739048e709"
+  end
+
+  def install
+    system "sh", "autogen.sh" if build.head?
+
+    args = %W[
+      --enable-sixel
+      --sysconfdir=#{etc}
+      --enable-utf8proc
+    ]
+
+    args << "--with-TERM=screen-256color" if OS.mac? && MacOS.version < :sonoma
+
+    system "./configure", *args, *std_configure_args
+    system "make", "install"
+
+    pkgshare.install "example_tmux.conf"
+    bash_completion.install resource("completion")
+  end
+
+  def caveats
+    <<~EOS
+      This is the drpedapati/tmux fork.
+      Upstream: https://github.com/tmux/tmux
+      Example configuration has been installed to:
+        #{opt_pkgshare}
+    EOS
+  end
+
+  test do
+    system bin/"tmux", "-V"
+  end
+end
