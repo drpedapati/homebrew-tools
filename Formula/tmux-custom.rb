@@ -54,10 +54,28 @@ class TmuxCustom < Formula
 
   def caveats
     <<~EOS
-      This is the drpedapati/tmux fork.
-      Upstream: https://github.com/tmux/tmux
-      Example configuration has been installed to:
-        #{opt_pkgshare}
+      ╭─ tmux-custom (drpedapati fork) ──────────────────────────────╮
+      │                                                               │
+      │  1. Install the Catppuccin theme plugin (one-time):           │
+      │                                                               │
+      │     git clone https://github.com/catppuccin/tmux \\           │
+      │       ~/.tmux/plugins/catppuccin                              │
+      │                                                               │
+      │  2. (Optional) Enable time tracking:                          │
+      │     Create ~/.wakatime.cfg with your API key:                 │
+      │                                                               │
+      │     [settings]                                                │
+      │     api_key = YOUR_KEY                                        │
+      │     # Wakapi users also add:                                  │
+      │     # api_url = https://your-wakapi-server/api/               │
+      │                                                               │
+      │  3. Start tmux:  tmux                                         │
+      │     (attaches to existing 'main' session or creates one)      │
+      │                                                               │
+      │  F1 inside tmux shows the full key binding reference.         │
+      │                                                               │
+      │  Docs: https://github.com/drpedapati/tmux                     │
+      ╰───────────────────────────────────────────────────────────────╯
     EOS
   end
 
