@@ -61,13 +61,13 @@ class TmuxCustom < Formula
       │     git clone https://github.com/catppuccin/tmux \\           │
       │       ~/.tmux/plugins/catppuccin                              │
       │                                                               │
-      │  2. (Optional) Enable time tracking:                          │
-      │     Create ~/.wakatime.cfg with your API key:                 │
+      │  2. (Optional) Enable time tracking via wakapi.dev:            │
+      │     Sign up at https://wakapi.dev, then create               │
+      │     ~/.wakatime.cfg:                                          │
       │                                                               │
       │     [settings]                                                │
       │     api_key = YOUR_KEY                                        │
-      │     # Wakapi users also add:                                  │
-      │     # api_url = https://your-wakapi-server/api/               │
+      │     api_url = https://wakapi.dev/api                          │
       │                                                               │
       │  3. Start tmux:  tmux                                         │
       │     (attaches to existing 'main' session or creates one)      │
