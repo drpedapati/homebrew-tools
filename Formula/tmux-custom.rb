@@ -18,6 +18,10 @@ class TmuxCustom < Formula
   depends_on "libevent"
   depends_on "ncurses"
   depends_on "utf8proc"
+  depends_on "wakatime-cli"
+  depends_on "sesh"
+  depends_on "fzf"
+  depends_on "zoxide"
 
   uses_from_macos "bison" => :build
 
@@ -44,6 +48,7 @@ class TmuxCustom < Formula
     system "make", "install"
 
     pkgshare.install "example_tmux.conf"
+    pkgshare.install "scripts/wakatime-heartbeat.sh" if File.exist?("scripts/wakatime-heartbeat.sh")
     bash_completion.install resource("completion")
   end
 
