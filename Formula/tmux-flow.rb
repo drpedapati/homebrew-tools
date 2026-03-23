@@ -67,8 +67,10 @@ class TmuxFlow < Formula
       src = pkgshare/script
       next unless src.exist?
       dst = tmux_dir/script
-      dst.write(src.read) unless dst.exist?
-      dst.chmod(0o755)
+      unless dst.exist?
+        dst.write(src.read)
+        dst.chmod(0o755)
+      end
     end
 
     # Clone plugins if not already installed
