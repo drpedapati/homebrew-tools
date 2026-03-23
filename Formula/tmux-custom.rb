@@ -54,11 +54,12 @@ class TmuxCustom < Formula
   end
 
   def post_install
-    # Copy helper scripts to ~/.tmux/ where key-bindings.c expects them.
-    # Uses the invoking user's home dir via ENV["HOME"].
-    tmux_dir = Pathname(ENV["HOME"])./(".tmux")
-    tmux_dir.mkpath
+    home = Pathname(ENV["HOME"])
+    tmux_dir = home/".tmux"
+    plugins_dir = tmux_dir/"plugins"
+    plugins_dir.mkpath
 
+    # Copy helper scripts (skip if already present so user edits are preserved)
     ["wakatime-heartbeat.sh", "switch-theme.sh"].each do |script|
       src = pkgshare/script
       next unless src.exist?
@@ -66,33 +67,33 @@ class TmuxCustom < Formula
       dst.write(src.read) unless dst.exist?
       dst.chmod(0o755)
     end
+
+    # Clone plugins if not already installed
+    {
+      "catppuccin"      => "https://github.com/catppuccin/tmux",
+      "tmux-resurrect"  => "https://github.com/tmux-plugins/tmux-resurrect",
+      "tmux-continuum"  => "https://github.com/tmux-plugins/tmux-continuum",
+    }.each do |name, url|
+      dst = plugins_dir/name
+      next if dst.exist?
+      system "git", "clone", "--depth=1", "--quiet", url, dst.to_s
+    end
   end
 
   def caveats
     <<~EOS
       ╭─ tmux-custom (drpedapati fork) ──────────────────────────────╮
       │                                                               │
-      │  1. Install plugins (one-time):                               │
+      │  Everything is installed automatically. Just run:            │
       │                                                               │
-      │     git clone https://github.com/catppuccin/tmux \\           │
-      │       ~/.tmux/plugins/catppuccin                              │
+      │     tmux                                                      │
       │                                                               │
-      │     git clone https://github.com/tmux-plugins/tmux-resurrect \\│
-      │       ~/.tmux/plugins/tmux-resurrect                          │
-      │                                                               │
-      │     git clone https://github.com/tmux-plugins/tmux-continuum \\│
-      │       ~/.tmux/plugins/tmux-continuum                          │
-      │                                                               │
-      │  2. (Optional) Enable time tracking via wakapi.dev:           │
-      │     Sign up at https://wakapi.dev, then create               │
-      │     ~/.wakatime.cfg:                                          │
+      │  (Optional) Enable time tracking via wakapi.dev:             │
+      │  Sign up at https://wakapi.dev, then create ~/.wakatime.cfg: │
       │                                                               │
       │     [settings]                                                │
       │     api_key = YOUR_KEY                                        │
       │     api_url = https://wakapi.dev/api                          │
-      │                                                               │
-      │  3. Start tmux:  tmux                                         │
-      │     (attaches to existing 'main' session or creates one)      │
       │                                                               │
       │  Sessions auto-save every 15 min. prefix+Ctrl-r to restore.  │
       │  F1 inside tmux shows the full key binding reference.         │
