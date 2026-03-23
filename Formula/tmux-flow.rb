@@ -6,12 +6,14 @@ class TmuxFlow < Formula
   license "ISC"
   version "next-3.7-flow.1"
 
+  # GitHub archive tarballs don't include generated configure scripts,
+  # so autotools are required for both stable and HEAD builds.
+  depends_on "autoconf" => :build
+  depends_on "automake" => :build
+  depends_on "libtool" => :build
+
   head do
     url "https://github.com/drpedapati/tmux-flow.git", branch: "main"
-
-    depends_on "autoconf" => :build
-    depends_on "automake" => :build
-    depends_on "libtool" => :build
   end
 
   depends_on "pkgconf" => :build
