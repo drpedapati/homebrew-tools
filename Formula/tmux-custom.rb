@@ -1,10 +1,10 @@
 class TmuxCustom < Formula
   desc "Terminal multiplexer (drpedapati fork with custom patches)"
   homepage "https://github.com/drpedapati/tmux"
-  url "https://github.com/tmux/tmux/releases/download/3.6a/tmux-3.6a.tar.gz"
-  sha256 "b6d8d9c76585db8ef5fa00d4931902fa4b8cbe8166f528f44fc403961a3f3759"
+  url "https://github.com/drpedapati/tmux/archive/refs/tags/next-3.7-custom.2.tar.gz"
+  sha256 "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5"
   license "ISC"
-  version "3.6a"
+  version "next-3.7-custom.2"
 
   head do
     url "https://github.com/drpedapati/tmux.git", branch: "main"
@@ -34,7 +34,7 @@ class TmuxCustom < Formula
   end
 
   def install
-    system "sh", "autogen.sh" if build.head?
+    system "sh", "autogen.sh"
 
     args = %W[
       --enable-sixel
