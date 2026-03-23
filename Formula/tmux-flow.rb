@@ -1,10 +1,10 @@
 class TmuxFlow < Formula
   desc "Terminal multiplexer with modern workflow defaults (tmux-flow)"
   homepage "https://github.com/drpedapati/tmux-flow"
-  url "https://github.com/drpedapati/tmux-flow/archive/refs/tags/next-3.7-custom.2.tar.gz"
-  sha256 "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5"
+  url "https://github.com/drpedapati/tmux-flow/archive/refs/tags/next-3.7-flow.1.tar.gz"
+  sha256 "335f0c74dbfad08305736483ce43558d76fa8c77a5e7d44f1338fc27d86d15d7"
   license "ISC"
-  version "next-3.7-custom.2"
+  version "next-3.7-flow.1"
 
   head do
     url "https://github.com/drpedapati/tmux-flow.git", branch: "main"
