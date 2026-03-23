@@ -49,7 +49,23 @@ class TmuxCustom < Formula
 
     pkgshare.install "example_tmux.conf"
     pkgshare.install "scripts/wakatime-heartbeat.sh" if File.exist?("scripts/wakatime-heartbeat.sh")
+    pkgshare.install "scripts/switch-theme.sh" if File.exist?("scripts/switch-theme.sh")
     bash_completion.install resource("completion")
+  end
+
+  def post_install
+    # Copy helper scripts to ~/.tmux/ where key-bindings.c expects them.
+    # Uses the invoking user's home dir via ENV["HOME"].
+    tmux_dir = Pathname(ENV["HOME"])./(".tmux")
+    tmux_dir.mkpath
+
+    ["wakatime-heartbeat.sh", "switch-theme.sh"].each do |script|
+      src = pkgshare/script
+      next unless src.exist?
+      dst = tmux_dir/script
+      dst.write(src.read) unless dst.exist?
+      dst.chmod(0o755)
+    end
   end
 
   def caveats
