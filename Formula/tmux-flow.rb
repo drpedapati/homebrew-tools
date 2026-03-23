@@ -1,13 +1,13 @@
-class TmuxCustom < Formula
-  desc "Terminal multiplexer (drpedapati fork with custom patches)"
-  homepage "https://github.com/drpedapati/tmux"
-  url "https://github.com/drpedapati/tmux/archive/refs/tags/next-3.7-custom.2.tar.gz"
+class TmuxFlow < Formula
+  desc "Terminal multiplexer with modern workflow defaults (tmux-flow)"
+  homepage "https://github.com/drpedapati/tmux-flow"
+  url "https://github.com/drpedapati/tmux-flow/archive/refs/tags/next-3.7-custom.2.tar.gz"
   sha256 "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5"
   license "ISC"
   version "next-3.7-custom.2"
 
   head do
-    url "https://github.com/drpedapati/tmux.git", branch: "main"
+    url "https://github.com/drpedapati/tmux-flow.git", branch: "main"
 
     depends_on "autoconf" => :build
     depends_on "automake" => :build
@@ -27,6 +27,7 @@ class TmuxCustom < Formula
 
   # Conflicts with stock tmux
   conflicts_with "tmux", because: "both install a `tmux` binary"
+  conflicts_with "tmux-custom", because: "tmux-flow replaces tmux-custom"
 
   resource "completion" do
     url "https://raw.githubusercontent.com/imomaliev/tmux-bash-completion/8da7f797245970659b259b85e5409f197b8afddd/completions/tmux"
@@ -82,7 +83,7 @@ class TmuxCustom < Formula
 
   def caveats
     <<~EOS
-      ╭─ tmux-custom ────────────────────────────────────────────────────────╮
+      ╭─ tmux-flow ────────────────────────────────────────────────────────╮
       │                                                                       │
       │  Everything is ready. Start tmux:                                     │
       │                                                                       │
@@ -95,7 +96,7 @@ class TmuxCustom < Formula
 
       ╭─ Optional: Time Tracking with Wakapi ────────────────────────────────╮
       │                                                                       │
-      │  tmux-custom fires a heartbeat every time you switch panes,          │
+      │  tmux-flow fires a heartbeat every time you switch panes,            │
       │  automatically tracking how long you spend in each project,          │
       │  which tools you use (claude, codex, lazygit, zsh), and which        │
       │  git branch you are on — all without touching your editor.            │
@@ -124,11 +125,14 @@ class TmuxCustom < Formula
       │  · Editors    — claude / codex / lazygit / zsh / nvim per project   │
       │  · Branches   — which git branch you were on                         │
       │  · Categories — same as editors, for filtering                       │
-      │  · Machines   — if you use tmux-custom on multiple machines          │
+      │  · Machines   — if you use tmux-flow on multiple machines            │
       │                                                                       │
       │  No ~/.wakatime.cfg = silent no-op. Zero overhead. Fully optional.   │
       │                                                                       │
       ╰───────────────────────────────────────────────────────────────────────╯
+
+      To install:
+        brew install drpedapati/tools/tmux-flow
     EOS
   end
 
