@@ -82,24 +82,53 @@ class TmuxCustom < Formula
 
   def caveats
     <<~EOS
-      ╭─ tmux-custom (drpedapati fork) ──────────────────────────────╮
-      │                                                               │
-      │  Everything is installed automatically. Just run:            │
-      │                                                               │
-      │     tmux                                                      │
-      │                                                               │
-      │  (Optional) Enable time tracking via wakapi.dev:             │
-      │  Sign up at https://wakapi.dev, then create ~/.wakatime.cfg: │
-      │                                                               │
-      │     [settings]                                                │
-      │     api_key = YOUR_KEY                                        │
-      │     api_url = https://wakapi.dev/api                          │
-      │                                                               │
-      │  Sessions auto-save every 15 min. prefix+Ctrl-r to restore.  │
-      │  F1 inside tmux shows the full key binding reference.         │
-      │                                                               │
-      │  Docs: https://github.com/drpedapati/tmux                     │
-      ╰───────────────────────────────────────────────────────────────╯
+      ╭─ tmux-custom ────────────────────────────────────────────────────────╮
+      │                                                                       │
+      │  Everything is ready. Start tmux:                                     │
+      │                                                                       │
+      │     tmux                                                              │
+      │                                                                       │
+      │  F1 inside tmux shows all key bindings.                               │
+      │  Sessions auto-save every 15 min  ·  prefix + Ctrl-r to restore.     │
+      │                                                                       │
+      ╰───────────────────────────────────────────────────────────────────────╯
+
+      ╭─ Optional: Time Tracking with Wakapi ────────────────────────────────╮
+      │                                                                       │
+      │  tmux-custom fires a heartbeat every time you switch panes,          │
+      │  automatically tracking how long you spend in each project,          │
+      │  which tools you use (claude, codex, lazygit, zsh), and which        │
+      │  git branch you are on — all without touching your editor.            │
+      │                                                                       │
+      │  It sends data to Wakapi, a free open-source WakaTime-compatible     │
+      │  backend. Self-hosted at wakapi.dev. No subscription required.        │
+      │                                                                       │
+      │  ── Setup (5 minutes) ───────────────────────────────────────────    │
+      │                                                                       │
+      │  1. Create a free account at https://wakapi.dev                      │
+      │                                                                       │
+      │  2. Copy your API key from:                                           │
+      │       wakapi.dev → Settings → Security → API Key                     │
+      │                                                                       │
+      │  3. Create ~/.wakatime.cfg with the following contents:              │
+      │                                                                       │
+      │       [settings]                                                      │
+      │       api_key = xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx                 │
+      │       api_url = https://wakapi.dev/api                                │
+      │                                                                       │
+      │  4. Start (or restart) tmux — tracking begins automatically.         │
+      │                                                                       │
+      │  ── What you will see in your dashboard ─────────────────────────    │
+      │                                                                       │
+      │  · Projects   — time per git repo (auto-detected from directory)     │
+      │  · Editors    — claude / codex / lazygit / zsh / nvim per project   │
+      │  · Branches   — which git branch you were on                         │
+      │  · Categories — same as editors, for filtering                       │
+      │  · Machines   — if you use tmux-custom on multiple machines          │
+      │                                                                       │
+      │  No ~/.wakatime.cfg = silent no-op. Zero overhead. Fully optional.   │
+      │                                                                       │
+      ╰───────────────────────────────────────────────────────────────────────╯
     EOS
   end
 
