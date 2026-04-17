@@ -33,7 +33,7 @@ class TmuxFlow < Formula
 
   resource "completion" do
     url "https://raw.githubusercontent.com/imomaliev/tmux-bash-completion/8da7f797245970659b259b85e5409f197b8afddd/completions/tmux"
-    sha256 "89837e37c0f30e0924820211888530558f2d4c30c34518f5ee4977278a309893"
+    sha256 "4e2179053376f4194b342249d75c243c1573c82c185bfbea008be1739048e709"
   end
 
   def install
