@@ -7,22 +7,22 @@ class PubmedCli < Formula
   on_macos do
     on_arm do
       url "https://github.com/drpedapati/pubmed-cli/releases/download/v0.6.0/pubmed-darwin-arm64"
-      sha256 "f1f16c692a508ad4bf2225fd42bbec9624110e61bb1894ed5154382619f041e0"
+      sha256 "9a9151bd1d08624ca2edbc912f6850be2f0f330b938f455da67c5650b5615bad"
     end
     on_intel do
       url "https://github.com/drpedapati/pubmed-cli/releases/download/v0.6.0/pubmed-darwin-amd64"
-      sha256 "c30e7285e4a38f5c4836451a7e4793dad93400682710d95d7f7c15fc39d106fc"
+      sha256 "677afdc21e728a3cc1a7422714916a0df0629bcbaef40278a98dd6df062f5cd3"
     end
   end
 
   on_linux do
     on_intel do
       url "https://github.com/drpedapati/pubmed-cli/releases/download/v0.6.0/pubmed-linux-amd64"
-      sha256 "dc007b61b247cfa4deec88973fa13f79c7347818146ff5042507b1ab45336e4b"
+      sha256 "105a18a4763de1df856a7c73dc58696283de6512cf6ded91055ab16c4e3e5e5f"
     end
     on_arm do
       url "https://github.com/drpedapati/pubmed-cli/releases/download/v0.6.0/pubmed-linux-arm64"
-      sha256 "217b8775f52f0c60f9b40e956dc7553d7acca5d01f47698f8de8c4d9428aa283"
+      sha256 "41e7f1d43a8ac4483bff4d906027c694ea418a6c6d1024cc0c0d510dbda19b1b"
     end
   end
 
@@ -39,6 +39,6 @@ class PubmedCli < Formula
   end
 
   test do
-    assert_match "Search PubMed", shell_output("#{bin}/pubmed --help")
+    assert_match "pubmed", shell_output("#{bin}/pubmed --help")
   end
 end
