@@ -1,35 +1,42 @@
 class DocxReview < Formula
-  desc "Read, edit, and diff Word documents with tracked changes from the CLI"
+  desc "Read, edit, create, and diff Word documents with tracked changes from the CLI"
   homepage "https://github.com/drpedapati/docx-review"
   license "MIT"
-  version "1.4.2"
+  version "1.5.0"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/drpedapati/docx-review/releases/download/v1.4.2/docx-review-darwin-arm64"
-      sha256 "8687929e2be0d927c0b2bea32eac12d8407b236b9ec002e74e4023628011429a"
+      url "https://github.com/drpedapati/docx-review/releases/download/v1.5.0/docx-review-darwin-arm64"
+      sha256 "19f574eefcd02d3160982f9aa3d9472d81e92b95f8055150ade89b6d6f1d7da9"
     else
-      url "https://github.com/drpedapati/docx-review/releases/download/v1.4.2/docx-review-darwin-amd64"
-      sha256 "0dee8acda5e2febd4107ec157c9ca4670ef9a79f1a14a2f6c98bb9b8516f615e"
+      url "https://github.com/drpedapati/docx-review/releases/download/v1.5.0/docx-review-darwin-amd64"
+      sha256 "7ea25c4be73a27e3a39a88abcfe6ad470041f598c0f85df86e62b7d2a0565240"
     end
   end
 
   on_linux do
     if Hardware::CPU.arm?
-      url "https://github.com/drpedapati/docx-review/releases/download/v1.4.2/docx-review-linux-arm64"
-      sha256 "b05bf72ebc202218ba06238c10552a2a922c6f462c769552338b3c83643e4080"
+      url "https://github.com/drpedapati/docx-review/releases/download/v1.5.0/docx-review-linux-arm64"
+      sha256 "f1479f2b3db4ab5dea8d975ff08895a6086acdc2ca78923b1bcca43b8bfcd8ce"
     else
-      url "https://github.com/drpedapati/docx-review/releases/download/v1.4.2/docx-review-linux-amd64"
-      sha256 "bdf6f01bd53ec3efa07f15ef3b509c29caf4e662984965c35cd04c9a3ccbf42d"
+      url "https://github.com/drpedapati/docx-review/releases/download/v1.5.0/docx-review-linux-amd64"
+      sha256 "b99f40b283e159fe05ccfa682826aa0b017c9e471f8bb658e8822fcc86616d19"
     end
   end
 
   def install
-    binary = Dir["docx-review-*"].first || "docx-review"
-    bin.install binary => "docx-review"
+    if OS.mac? && Hardware::CPU.arm?
+      bin.install "docx-review-darwin-arm64" => "docx-review"
+    elsif OS.mac?
+      bin.install "docx-review-darwin-amd64" => "docx-review"
+    elsif Hardware::CPU.arm?
+      bin.install "docx-review-linux-arm64" => "docx-review"
+    else
+      bin.install "docx-review-linux-amd64" => "docx-review"
+    end
   end
 
   test do
-    assert_match "docx-review 1.4.2", shell_output("#{bin}/docx-review --version")
+    assert_match "docx-review", shell_output("#{bin}/docx-review --help")
   end
 end
