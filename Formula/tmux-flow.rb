@@ -1,8 +1,8 @@
 class TmuxFlow < Formula
   desc "Terminal multiplexer with modern workflow defaults (tmux-flow)"
   homepage "https://github.com/drpedapati/tmux-flow"
-  url "https://github.com/drpedapati/tmux-flow/archive/refs/tags/v1.8.tar.gz"
-  sha256 "d15fc5a6a638e5ee7254c58ec2fd3cda3702c0bb5436657d75a504b515b2cbe0"
+  url "https://github.com/drpedapati/tmux-flow/archive/refs/tags/v1.9.tar.gz"
+  sha256 "fa977481abda8edd742f062ba2f4a7fe3cfefe29b4e2a2ddccf25480acfde61a"
   license "ISC"
 
   # GitHub archive tarballs don't include generated configure scripts,
