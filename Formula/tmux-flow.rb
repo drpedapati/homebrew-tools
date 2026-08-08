@@ -5,6 +5,15 @@ class TmuxFlow < Formula
   sha256 "0a1840da82fab68d3cab8aa922c30e0b9043850bea41e00e2b8d7824691e5138"
   license "ISC"
 
+  # Prebuilt binaries, so installing does not compile tmux from source.
+  # Bottles are attached to the matching tmux-flow GitHub release; rebuild them
+  # with scripts/build-bottle.sh on each platform after tagging a new version.
+  bottle do
+    root_url "https://github.com/drpedapati/tmux-flow/releases/download/v2.1"
+    sha256 cellar: :any, arm64_tahoe:  "17d57f30304b60395b7aa0ec00c7e66928f8ce4904f3804adb097fc181c5ed75"
+    sha256 cellar: :any, x86_64_linux: "81b6db12b92acc0bbf3ab8e96ab60d5368bc29a58983e8a8ebe9e04c3c3c73f5"
+  end
+
   # GitHub archive tarballs don't include generated configure scripts,
   # so autotools are required for both stable and HEAD builds.
   depends_on "autoconf" => :build
