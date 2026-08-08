@@ -27,6 +27,14 @@ class TmuxFlow < Formula
 
   uses_from_macos "bison" => :build
 
+  # tmux 3.8 makes the jemalloc choice mandatory on Darwin: configure aborts
+  # with "must give --enable-jemalloc or --disable-jemalloc" if neither is
+  # passed. Upstream recommends enabling it, because macOS calloc(3) does not
+  # reliably zero allocations (tmux issue 5385). Not required on Linux.
+  on_macos do
+    depends_on "jemalloc"
+  end
+
   # Conflicts with stock tmux
   conflicts_with "tmux", because: "both install a `tmux` binary"
   conflicts_with "tmux-custom", because: "tmux-flow replaces tmux-custom"
@@ -63,6 +71,9 @@ class TmuxFlow < Formula
     ]
 
     args << "--with-TERM=screen-256color" if OS.mac? && MacOS.version < :sonoma
+
+    # Mandatory on Darwin since tmux 3.8; see the on_macos block above.
+    args << "--enable-jemalloc" if OS.mac?
 
     system "./configure", *args, *std_configure_args
     system "make", "install"
