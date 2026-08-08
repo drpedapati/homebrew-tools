@@ -4,7 +4,6 @@ class TmuxFlow < Formula
   url "https://github.com/drpedapati/tmux-flow/archive/refs/tags/v1.8.tar.gz"
   sha256 "d15fc5a6a638e5ee7254c58ec2fd3cda3702c0bb5436657d75a504b515b2cbe0"
   license "ISC"
-  version "1.8"
 
   # GitHub archive tarballs don't include generated configure scripts,
   # so autotools are required for both stable and HEAD builds.
@@ -20,9 +19,10 @@ class TmuxFlow < Formula
   depends_on "libevent"
   depends_on "ncurses"
   depends_on "utf8proc"
-  depends_on "wakatime-cli"
-  depends_on "sesh"
+
+  # Required by the F12 session chooser.
   depends_on "fzf"
+  depends_on "sesh"
   depends_on "zoxide"
 
   uses_from_macos "bison" => :build
@@ -34,6 +34,23 @@ class TmuxFlow < Formula
   resource "completion" do
     url "https://raw.githubusercontent.com/imomaliev/tmux-bash-completion/8da7f797245970659b259b85e5409f197b8afddd/completions/tmux"
     sha256 "4e2179053376f4194b342249d75c243c1573c82c185bfbea008be1739048e709"
+  end
+
+  # Bundled plugins. Pinned and checksummed so every install gets identical
+  # code; previously these were cloned at --depth=1 from whatever HEAD was.
+  resource "catppuccin" do
+    url "https://github.com/catppuccin/tmux/archive/refs/tags/v2.3.0.tar.gz"
+    sha256 "6072ac982aaba71a1ee2a4780a2b5debecfb272857d6ae2ffb9b52649ee07b1a"
+  end
+
+  resource "tmux-resurrect" do
+    url "https://github.com/tmux-plugins/tmux-resurrect/archive/cff343cf9e81983d3da0c8562b01616f12e8d548.tar.gz"
+    sha256 "9f1dda18554291ee7f8a0f499e2af90bbadc2ebceb7a995bb13b76529fe0c5c9"
+  end
+
+  resource "tmux-continuum" do
+    url "https://github.com/tmux-plugins/tmux-continuum/archive/0698e8f4b17d6454c71bf5212895ec055c578da0.tar.gz"
+    sha256 "a1b9a2f0715163472ca713679204a1ca55d3f845cf1c659ae04222db3553424f"
   end
 
   def install
@@ -51,96 +68,87 @@ class TmuxFlow < Formula
     system "make", "install"
 
     pkgshare.install "example_tmux.conf"
-    pkgshare.install "scripts/wakatime-heartbeat.sh" if File.exist?("scripts/wakatime-heartbeat.sh")
-    pkgshare.install "scripts/switch-theme.sh" if File.exist?("scripts/switch-theme.sh")
-    bash_completion.install resource("completion")
-  end
+    pkgshare.install "scripts/wakatime-heartbeat.sh"
+    pkgshare.install "scripts/switch-theme.sh"
 
-  def post_install
-    home = Pathname(ENV["HOME"])
-    tmux_dir = home/".tmux"
-    plugins_dir = tmux_dir/"plugins"
-    plugins_dir.mkpath
-
-    # Copy helper scripts (skip if already present so user edits are preserved)
-    ["wakatime-heartbeat.sh", "switch-theme.sh"].each do |script|
-      src = pkgshare/script
-      next unless src.exist?
-      dst = tmux_dir/script
-      unless dst.exist?
-        dst.write(src.read)
-        dst.chmod(0o755)
+    %w[catppuccin tmux-resurrect tmux-continuum].each do |plugin|
+      resource(plugin).stage do
+        (pkgshare/"plugins"/plugin).install Dir["*"]
       end
     end
 
-    # Clone plugins if not already installed
-    {
-      "catppuccin"      => "https://github.com/catppuccin/tmux",
-      "tmux-resurrect"  => "https://github.com/tmux-plugins/tmux-resurrect",
-      "tmux-continuum"  => "https://github.com/tmux-plugins/tmux-continuum",
-    }.each do |name, url|
-      dst = plugins_dir/name
-      next if dst.exist?
-      system "git", "clone", "--depth=1", "--quiet", url, dst.to_s
-    end
+    # Bake the install prefix into the bootstrap config so it can be sourced
+    # directly. tmux has no way to resolve a config file's own directory.
+    pkgshare.install "scripts/tmux-flow.conf"
+    inreplace pkgshare/"tmux-flow.conf", "@@PKGSHARE@@", pkgshare
+
+    bash_completion.install resource("completion")
   end
 
   def caveats
     <<~EOS
-      ╭─ tmux-flow ────────────────────────────────────────────────────────╮
-      │                                                                       │
-      │  Everything is ready. Start tmux:                                     │
-      │                                                                       │
-      │     tmux                                                              │
-      │                                                                       │
-      │  F1 inside tmux shows all key bindings.                               │
-      │  Sessions auto-save every 15 min  ·  prefix + Ctrl-r to restore.     │
-      │                                                                       │
-      ╰───────────────────────────────────────────────────────────────────────╯
+      Everything is ready. Start tmux:
 
-      ╭─ Optional: Time Tracking with Wakapi ────────────────────────────────╮
-      │                                                                       │
-      │  tmux-flow fires a heartbeat every time you switch panes,            │
-      │  automatically tracking how long you spend in each project,          │
-      │  which tools you use (claude, codex, lazygit, zsh), and which        │
-      │  git branch you are on — all without touching your editor.            │
-      │                                                                       │
-      │  It sends data to Wakapi, a free open-source WakaTime-compatible     │
-      │  backend. Self-hosted at wakapi.dev. No subscription required.        │
-      │                                                                       │
-      │  ── Setup (5 minutes) ───────────────────────────────────────────    │
-      │                                                                       │
-      │  1. Create a free account at https://wakapi.dev                      │
-      │                                                                       │
-      │  2. Copy your API key from:                                           │
-      │       wakapi.dev → Settings → Security → API Key                     │
-      │                                                                       │
-      │  3. Create ~/.wakatime.cfg with the following contents:              │
-      │                                                                       │
-      │       [settings]                                                      │
-      │       api_key = xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx                 │
-      │       api_url = https://wakapi.dev/api                                │
-      │                                                                       │
-      │  4. Start (or restart) tmux — tracking begins automatically.         │
-      │                                                                       │
-      │  ── What you will see in your dashboard ─────────────────────────    │
-      │                                                                       │
-      │  · Projects   — time per git repo (auto-detected from directory)     │
-      │  · Editors    — claude / codex / lazygit / zsh / nvim per project   │
-      │  · Branches   — which git branch you were on                         │
-      │  · Categories — same as editors, for filtering                       │
-      │  · Machines   — if you use tmux-flow on multiple machines            │
-      │                                                                       │
-      │  No ~/.wakatime.cfg = silent no-op. Zero overhead. Fully optional.   │
-      │                                                                       │
-      ╰───────────────────────────────────────────────────────────────────────╯
+          tmux
 
-      To install:
-        brew install drpedapati/tools/tmux-flow
+      Key bindings, mouse support and the status bar are built into the binary
+      and need no configuration. Press F1 inside tmux for the full list.
+
+      ── Optional: theme and session save/restore ──────────────────────────
+
+      The Catppuccin theme and session save/restore ship with tmux-flow but are
+      opt-in, because enabling them means loading plugins into your config. To
+      turn them on, add this line to ~/.tmux.conf:
+
+          source #{pkgshare}/tmux-flow.conf
+
+      That gives you Catppuccin colours, auto-save every 15 minutes, and
+      prefix + Ctrl-r to restore a saved session.
+
+      ── Optional: time tracking with Wakapi ───────────────────────────────
+
+      tmux-flow can fire a heartbeat when you switch panes, tracking time per
+      git repo, per branch and per tool. It sends to Wakapi, a free
+      WakaTime-compatible backend.
+
+        1. Create an account at https://wakapi.dev
+        2. Copy your API key from Settings -> Security -> API Key
+        3. Create ~/.wakatime.cfg containing:
+
+             [settings]
+             api_key = xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+             api_url = https://wakapi.dev/api
+
+        4. Start or restart tmux.
+
+      With no ~/.wakatime.cfg this is a silent no-op.
     EOS
   end
 
   test do
-    system bin/"tmux", "-V"
+    assert_match "tmux", shell_output("#{bin}/tmux -V")
+
+    # The bootstrap config and every plugin it sources must be present, and the
+    # prefix placeholder must have been rewritten.
+    assert_path_exists pkgshare/"tmux-flow.conf"
+    refute_match "@@PKGSHARE@@", (pkgshare/"tmux-flow.conf").read
+
+    %w[
+      plugins/catppuccin/catppuccin.tmux
+      plugins/tmux-resurrect/resurrect.tmux
+      plugins/tmux-continuum/continuum.tmux
+    ].each { |f| assert_path_exists pkgshare/f }
+
+    # The server must start with the bootstrap config and load the plugins.
+    socket = "tmux-flow-test"
+    system bin/"tmux", "-L", socket, "-f", pkgshare/"tmux-flow.conf", "new-session", "-d"
+    begin
+      flavour = shell_output("#{bin}/tmux -L #{socket} show -gv @catppuccin_flavor").strip
+      assert_equal "mocha", flavour
+      keys = shell_output("#{bin}/tmux -L #{socket} list-keys -T prefix")
+      assert_match "resurrect", keys
+    ensure
+      system bin/"tmux", "-L", socket, "kill-server"
+    end
   end
 end
